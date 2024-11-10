@@ -6,14 +6,17 @@ import os
 def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_presents):
     # Update the opposite_df to set "Givers" to empty if the number of gifts is 0
     opposite_df['Givers'] = opposite_df.apply(lambda row: "" if gift_counts_df.loc[gift_counts_df['Recipient'] == row['Recipient'], 'Number of Gifts'].values[0] == 0 else row['Givers'], axis=1)
-    print(santa_df)
+    #print(santa_df)
     # Create a new column in santa_df for the number of gifts each giver is giving
     santa_df['Number of Gifts'] = santa_df['Recipients'].apply(lambda x: len(x.split(', ')) if x else 0)
 
 
     # Create a new column in opposite_df to count the number of givers for each recipient
     opposite_df['Number of Givers'] = opposite_df['Givers'].apply(lambda x: len(x.split(', ')) if x else 0)
+    print('-----------')
+    opposite_df['Giftee'] = opposite_df['Recipient']
 
+    opposite_df= opposite_df.sort_values(by='Giftee')
     # Create Plotly subplots (Two Tables)
     fig = make_subplots(
         rows=1, cols=2,
@@ -45,7 +48,7 @@ def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_p
                     fill_color='gold',  # Gold for header (Christmas color)
                     font=dict(color='red', size=14, family="Arial, sans-serif"),  # Red text for header
                     align='center'),
-        cells=dict(values=[gift_counts_df['Giftee'], opposite_df['Number of Givers'], opposite_df['Givers'] ],
+        cells=dict(values=[opposite_df['Giftee'], opposite_df['Number of Givers'], opposite_df['Givers'] ],
                    fill_color=['rgb(204, 255, 204)', 'rgb(204, 255, 204)', 'rgb(204, 255, 204)', 'rgb(204, 255, 204)'],  # Light green for cells
                    font=dict(color='green', size=12, family="Arial, sans-serif"),  # Green text for cells
                    align='left',
@@ -90,6 +93,8 @@ def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_p
     # Save the results to CSV files in the 'results' folder
     santa_df.to_csv("results/secret_santa_pairings.csv", index=False)
     gift_counts_df.to_csv("results/gift_counts.csv", index=False)
+    # Save the figure as an HTML file in the 'results' folder
+    fig.write_image("results/secret_santa_plot.png")
 
     # Additionally save the number of participants to a separate CSV
     num_participants_df = pd.DataFrame({"Total Participants": [total_participants]})

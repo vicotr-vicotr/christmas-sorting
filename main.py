@@ -20,7 +20,7 @@ godparents = read_godparents(godparents_file)
 no_presents = read_no_presents(no_presents_file)
 
 # Number of presents each person will give
-num_presents = 4
+num_presents = 3
 
 # Generate the Secret Santa results
 santa_df, gift_counts_df, reverse_df, total_participants, total_presents = secret_santa_with_forced_constraints(

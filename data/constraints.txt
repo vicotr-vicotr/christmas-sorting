@@ -5,3 +5,5 @@ Salome: Louis
 Louis: Salome
 Marielle: Isabelle, Coline, Theodore, Pauline, Valentine, Salome, Marie
 Pierre: Victor, Paul, Edouard, Clementine, Henri, Louis, Theophane, Felix, Pierre-Eloi, Augustin, Esperance, Charles, Eugenie, Domitille
+Paul: Stanislas, Amaury
+Edouard: Eloi
