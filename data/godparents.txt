@@ -4,3 +4,5 @@ Victor: Charles
 Clementine: Esperance
 Clementine: Amaury
 Pauline: Stanislas
+Edouard: Domitille
+Paul: Eugenie

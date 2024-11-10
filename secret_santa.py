@@ -15,14 +15,14 @@ def secret_santa_with_forced_constraints(participants, num_presents, constraints
 
         # Add forced recipients from constraints
         forced_recipients = constraints.get(person, [])
-        if len(forced_recipients) > num_presents:
-            return f"{person} has more forced recipients than allowed presents."
+        #if len(forced_recipients) > num_presents:
+        #    return f"{person} has more forced recipients than allowed presents."
         santa_pairs[person].extend(forced_recipients)
         for recipient in forced_recipients:
             gift_counts[recipient] += 1
 
         # Remaining gifts to assign
-        remaining_gifts = num_presents - len(forced_recipients)
+        remaining_gifts = max(0,num_presents - len(forced_recipients))
         possible_recipients = [p for p in participants if p != person and p not in santa_pairs[person]]
 
         if len(possible_recipients) < remaining_gifts:

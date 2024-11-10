@@ -57,7 +57,7 @@ def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_p
         text="""<b>Recipient:</b> A person who receives gifts in the Secret Santa exchange.<br>
                 <b>Giver:</b> A person who makes gifts in the Secret Santa exchange.""",
         xref="paper", yref="paper",
-        x=0.5, y=0.05,  # Position the annotation above the tables
+        x=0.5, y=0.00,  # Position the annotation above the tables
         showarrow=False,
         font=dict(color='black', size=14, family="Arial, sans-serif"),
         align="center"
