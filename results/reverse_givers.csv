@@ -1,0 +1,31 @@
+Recipient,Givers,Number of Givers,Giftee
+Oma,"Louis, Marie, Augustin, Eugenie, Domitille",5,Oma
+Grand-mere,"Theodore, Salome, Eugenie, Domitille",4,Grand-mere
+Pierre,"Marielle, Philippe, Augustin",3,Pierre
+Francois,"Oma, Paul, Victor, Theophane",4,Francois
+Marielle,"Pierre, Philippe, Louis, Domitille",4,Marielle
+Philippe,"Victor, Eugenie",2,Philippe
+Paul,"Pierre, Isabelle, Felix, Pierre-Eloi",4,Paul
+Isabelle,"Marielle, Paul, Augustin, Domitille",4,Isabelle
+Amaury,"Paul, Clementine, Charles",3,Amaury
+Stanislas,"Paul, Valentine, Theophane, Pierre-Eloi",4,Stanislas
+Victor,"Pierre, Philippe, Valentine, Charles",4,Victor
+Valentine,"Grand-mere, Marielle, Victor, Theophane, Pierre-Eloi",5,Valentine
+Edouard,"Pierre, Coline, Marie, Esperance",4,Edouard
+Coline,"Oma, Marielle, Edouard, Henri, Salome",5,Coline
+Eloi,"Isabelle, Victor, Edouard, Coline",4,Eloi
+Clementine,"Pierre, Victor, Henri, Pauline",4,Clementine
+Theodore,"Marielle, Paul, Edouard, Coline",4,Theodore
+Henri,"Pierre, Philippe, Pauline",3,Henri
+Pauline,"Marielle, Valentine, Eloi, Henri",4,Pauline
+Louis,"Pierre, Edouard, Salome",3,Louis
+Salome,"Marielle, Louis, Marie, Charles",4,Salome
+Theophane,"Pierre, Henri, Louis, Marie",4,Theophane
+Marie,"Marielle, Coline, Theodore, Theophane, Charles",5,Marie
+Felix,"Grand-mere, Pierre, Esperance",3,Felix
+Pierre-Eloi,"Grand-mere, Pierre, Pauline, Felix",4,Pierre-Eloi
+Augustin,"Pierre, Theodore, Esperance",3,Augustin
+Esperance,"Pierre, Clementine, Pauline, Felix",4,Esperance
+Charles,"Oma, Pierre, Victor, Valentine",4,Charles
+Eugenie,"Pierre, Philippe, Paul, Clementine",4,Eugenie
+Domitille,"Pierre, Isabelle, Clementine, Salome",4,Domitille

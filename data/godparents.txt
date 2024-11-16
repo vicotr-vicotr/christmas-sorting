@@ -3,6 +3,8 @@ Philippe: Victor
 Victor: Charles
 Clementine: Esperance
 Clementine: Amaury
-Pauline: Stanislas
+Pauline: Eloi
+Esperance: Stanislas
 Edouard: Domitille
 Paul: Eugenie
+Isabelle: Domitille

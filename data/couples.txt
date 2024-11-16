@@ -6,5 +6,3 @@ Clementine: Theodore
 Henri: Pauline
 Louis: Salome
 Theophane: Marie
-
-

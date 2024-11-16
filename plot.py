@@ -2,6 +2,17 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
 import os
+import os
+import dash
+from dash import dash_table, html, dcc
+import pandas as pd
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+import dash
+import dash_bootstrap_components as dbc
+from dash import html, dash_table
+import pandas as pd
 
 def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_presents):
     # Update the opposite_df to set "Givers" to empty if the number of gifts is 0
@@ -13,7 +24,6 @@ def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_p
 
     # Create a new column in opposite_df to count the number of givers for each recipient
     opposite_df['Number of Givers'] = opposite_df['Givers'].apply(lambda x: len(x.split(', ')) if x else 0)
-    print('-----------')
     opposite_df['Giftee'] = opposite_df['Recipient']
 
     opposite_df= opposite_df.sort_values(by='Giftee')
@@ -60,7 +70,7 @@ def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_p
         text="""<b>Recipient:</b> A person who receives gifts in the Secret Santa exchange.<br>
                 <b>Giver:</b> A person who makes gifts in the Secret Santa exchange.""",
         xref="paper", yref="paper",
-        x=0.5, y=0.00,  # Position the annotation above the tables
+        x=0.5, y=-0.0001,  # Position the annotation above the tables
         showarrow=False,
         font=dict(color='black', size=14, family="Arial, sans-serif"),
         align="center"
@@ -93,6 +103,7 @@ def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_p
     # Save the results to CSV files in the 'results' folder
     santa_df.to_csv("results/secret_santa_pairings.csv", index=False)
     gift_counts_df.to_csv("results/gift_counts.csv", index=False)
+    opposite_df.to_csv("results/reverse_givers.csv", index=False)
     # Save the figure as an HTML file in the 'results' folder
     fig.write_image("results/secret_santa_plot.png")
 
@@ -104,3 +115,105 @@ def create_plot(santa_df, gift_counts_df, opposite_df, total_participants, num_p
     print("Results have been saved in the 'results' folder.")
 
     return fig
+
+
+def create_app_dash():
+    # Load data
+    santa_df = pd.read_csv("results/secret_santa_pairings.csv")
+    opposite_df= pd.read_csv("results/reverse_givers.csv")
+    gift_counts_df = pd.read_csv("results/gift_counts.csv")
+
+    # Prepare data for the Dash tables
+    #santa_df["Number of Gifts"] = santa_df['Recipients'].apply(lambda x: len(x.split(', ')) if x else 0)
+    #santa_df.rename(columns={"Recipients": "Giftees"}, inplace=True)
+    #gift_counts_df.rename(columns={"Recipient": "Giftee"}, inplace=True)
+
+    # Create Dash app
+    app = dash.Dash(__name__)
+    app.title = "Blanchier Secret Santa Gift Distribution"
+
+    app.layout = html.Div([
+        # Header
+        html.H1("Blanchier Santa and Gift Distribution", style={"text-align": "center", "color": "green"}),
+
+        # Create a 2-column layout using Grid
+        dbc.Row(
+            [
+                # Column for the Secret Santa Pairings table
+                dbc.Col(
+                    [
+                        html.H3("Secret Santa Pairings", style={"color": "red", "text-align": "center"}),
+                        dash_table.DataTable(
+                            id="santa-table",
+                            columns=[
+                                {"name": "Giver", "id": "Giver"},
+                                {"name": "Number of Gifts", "id": "Number of Gifts"},
+                                {"name": "Giftees", "id": "Giftees"},
+                            ],
+                            data=santa_df.to_dict("records"),
+                            editable=True,
+                            style_header={
+                                'backgroundColor': 'gold',
+                                'color': 'red',
+                                'fontWeight': 'bold',
+                                'textAlign': 'center',
+                            },
+                            style_cell={
+                                'backgroundColor': 'rgb(204, 255, 204)',
+                                'color': 'green',
+                                'textAlign': 'left',
+                                'whiteSpace': 'normal',  # Allow text to wrap
+                                'height': 'auto',
+                            },
+                            style_data={'height': '30px'},
+                            style_table={'width': '100%'}
+                        ),
+                    ], width=6  # 50% of the row width
+                ),
+
+                # Column for the Gift Counts table
+                dbc.Col(
+                    [
+                        html.H3("Number of Gifts Each Recipient Receives",
+                                style={"color": "red", "text-align": "center"}),
+                        dash_table.DataTable(
+                            id="gift-counts-table",
+                            columns=[
+                                {"name": "Giftee", "id": "Giftee"},
+                                {"name": "Number of Givers", "id": "Number of Givers"},
+                                {"name": "Givers", "id": "Givers"},
+                            ],
+                            data=opposite_df.to_dict("records"),
+                            editable=True,
+                            style_header={
+                                'backgroundColor': 'gold',
+                                'color': 'red',
+                                'fontWeight': 'bold',
+                                'textAlign': 'center',
+                            },
+                            style_cell={
+                                'backgroundColor': 'rgb(204, 255, 204)',
+                                'color': 'green',
+                                'textAlign': 'left',
+                                'whiteSpace': 'normal',  # Allow text to wrap
+                                'height': 'auto',
+                            },
+                            style_data={'height': '30px'},
+                            style_table={'width': '100%'}
+                        ),
+                    ], width=6  # 50% of the row width
+                )
+            ]
+        ),
+
+        # Description
+        html.Div([
+            html.P(
+                """<b>Recipient:</b> A person who receives gifts in the Secret Santa exchange.<br>
+                <b>Giver:</b> A person who makes gifts in the Secret Santa exchange.""",
+                style={"text-align": "center", "color": "black"}
+            )
+        ], style={"width": "90%", "margin": "0 auto", "padding": "20px"})
+    ])
+
+    return app
